@@ -121,15 +121,15 @@ export default function Orders() {
                     <p className="text-sm text-gray-600">{order.deliveryAddress}</p>
                   </div>
 
-                  <div className="mt-4 flex gap-3">
-                    <button className="px-4 py-2 border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50">
+                  <div className="mt-4 flex flex-col sm:flex-row gap-3">
+                    <button className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50">
                       View Details
                     </button>
 
-                    <div className="relative" ref={openDocsMenu === order.id ? docsMenuRef : null}>
+                    <div className="relative w-full sm:w-auto" ref={openDocsMenu === order.id ? docsMenuRef : null}>
                       <button
                         onClick={() => toggleDocsMenu(order.id)}
-                        className="px-4 py-2 border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                        className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center justify-center gap-2"
                       >
                         <FileText className="w-4 h-4" />
                         Documents
@@ -137,7 +137,7 @@ export default function Orders() {
                       </button>
 
                       {openDocsMenu === order.id && (
-                        <div className="absolute bottom-full mb-2 left-0 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-[160px]">
+                        <div className="absolute bottom-full sm:bottom-auto sm:top-full mb-2 sm:mb-0 sm:mt-2 left-0 right-0 sm:right-auto bg-white border border-gray-200 rounded-lg shadow-lg z-10 sm:min-w-[160px]">
                           <button
                             onClick={() => handleDocumentAction(order.id, 'Invoice')}
                             className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-t-lg"
@@ -162,7 +162,7 @@ export default function Orders() {
 
                     <button
                       onClick={() => handleReorder(order)}
-                      className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm font-medium"
+                      className="w-full sm:w-auto px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm font-medium"
                     >
                       Reorder
                     </button>
