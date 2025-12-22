@@ -1,5 +1,6 @@
-import { Phone, ShoppingCart, MapPin, ChevronRight } from 'lucide-react';
+import { Phone, ShoppingCart, MapPin, ChevronRight, LogIn } from 'lucide-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function App() {
   const [chatVisible, setChatVisible] = useState(true);
@@ -36,12 +37,13 @@ function App() {
               <ShoppingCart className="w-5 h-5" />
               <span className="text-sm">$0.00</span>
             </button>
-            <a
-              href="tel:504-323-6496"
-              className="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded font-bold transition-colors hidden sm:inline-block"
+            <Link
+              to="/login"
+              className="flex items-center gap-2 border-2 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white px-6 py-2 rounded font-bold transition-colors"
             >
-              SHOP
-            </a>
+              <LogIn className="w-4 h-4" />
+              Login
+            </Link>
           </div>
         </div>
       </nav>
