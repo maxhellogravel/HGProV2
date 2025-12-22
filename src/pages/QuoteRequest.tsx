@@ -9,6 +9,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 export default function QuoteRequest() {
   const { user } = useAuth();
+  const [po, setPo] = useState('');
   const [material, setMaterial] = useState(MATERIALS[0]);
   const [tons, setTons] = useState('');
   const [deliveryAddress, setDeliveryAddress] = useState('');
@@ -22,6 +23,7 @@ export default function QuoteRequest() {
 
     setTimeout(() => {
       setSubmitted(false);
+      setPo('');
       setMaterial(MATERIALS[0]);
       setTons('');
       setDeliveryAddress('');
@@ -59,6 +61,20 @@ export default function QuoteRequest() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      PO Number (optional)
+                    </label>
+                    <input
+                      type="text"
+                      value={po}
+                      onChange={(e) => setPo(e.target.value)}
+                      placeholder="e.g., PO-2024-001"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">Add a PO to group multiple orders to the same job site</p>
+                  </div>
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">

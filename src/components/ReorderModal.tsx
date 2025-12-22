@@ -9,6 +9,7 @@ interface ReorderModalProps {
   order: Order;
   onClose: () => void;
   onConfirm: (orderData: {
+    po?: string;
     material: string;
     tons: number;
     deliveryAddress: string;
@@ -17,6 +18,7 @@ interface ReorderModalProps {
 }
 
 export default function ReorderModal({ order, onClose, onConfirm }: ReorderModalProps) {
+  const [po, setPo] = useState(order.po || '');
   const [material, setMaterial] = useState(order.material);
   const [tons, setTons] = useState(order.tons.toString());
   const [deliveryAddress, setDeliveryAddress] = useState(order.deliveryAddress);
@@ -25,6 +27,7 @@ export default function ReorderModal({ order, onClose, onConfirm }: ReorderModal
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     onConfirm({
+      po: po || undefined,
       material,
       tons: parseInt(tons),
       deliveryAddress,
@@ -50,6 +53,19 @@ export default function ReorderModal({ order, onClose, onConfirm }: ReorderModal
             <p className="text-sm text-blue-800">
               <span className="font-bold">Original Order:</span> {order.id} from {order.date}
             </p>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              PO Number (optional)
+            </label>
+            <input
+              type="text"
+              value={po}
+              onChange={(e) => setPo(e.target.value)}
+              placeholder="e.g., PO-2024-001"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+            />
           </div>
 
           <div>

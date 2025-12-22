@@ -1,7 +1,8 @@
 // ABOUTME: Order history page showing all past and current material orders
 // ABOUTME: Searchable and filterable list with order details
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { FileText, ChevronDown } from 'lucide-react';
 import DashboardLayout from '../components/DashboardLayout';
 import ReorderModal from '../components/ReorderModal';
 import { fakeOrders, Order } from '../data/fakeData';
@@ -10,6 +11,8 @@ export default function Orders() {
   const [searchTerm, setSearchTerm] = useState('');
   const [reorderingOrder, setReorderingOrder] = useState<Order | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [openDocsMenu, setOpenDocsMenu] = useState<string | null>(null);
+  const docsMenuRef = useRef<HTMLDivElement>(null);
 
   const filteredOrders = fakeOrders.filter(
     (order) =>
@@ -23,6 +26,7 @@ export default function Orders() {
   };
 
   const handleConfirmReorder = (orderData: {
+    po?: string;
     material: string;
     tons: number;
     deliveryAddress: string;
@@ -39,6 +43,26 @@ export default function Orders() {
   const handleCloseModal = () => {
     setReorderingOrder(null);
   };
+
+  const toggleDocsMenu = (orderId: string) => {
+    setOpenDocsMenu(openDocsMenu === orderId ? null : orderId);
+  };
+
+  const handleDocumentAction = (orderId: string, docType: string) => {
+    alert(`${docType} for order ${orderId} - Coming soon!`);
+    setOpenDocsMenu(null);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (docsMenuRef.current && !docsMenuRef.current.contains(event.target as Node)) {
+        setOpenDocsMenu(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <DashboardLayout>
@@ -82,6 +106,7 @@ export default function Orders() {
                         </span>
                       </div>
                       <p className="text-sm text-gray-600 mb-1">Order #{order.id}</p>
+                      {order.po && <p className="text-sm text-gray-600 mb-1">PO: {order.po}</p>}
                       <p className="text-sm text-gray-600">{order.date}</p>
                     </div>
 
@@ -100,6 +125,41 @@ export default function Orders() {
                     <button className="px-4 py-2 border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50">
                       View Details
                     </button>
+
+                    <div className="relative" ref={openDocsMenu === order.id ? docsMenuRef : null}>
+                      <button
+                        onClick={() => toggleDocsMenu(order.id)}
+                        className="px-4 py-2 border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                      >
+                        <FileText className="w-4 h-4" />
+                        Documents
+                        <ChevronDown className="w-4 h-4" />
+                      </button>
+
+                      {openDocsMenu === order.id && (
+                        <div className="absolute bottom-full mb-2 left-0 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-[160px]">
+                          <button
+                            onClick={() => handleDocumentAction(order.id, 'Invoice')}
+                            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-t-lg"
+                          >
+                            Invoice
+                          </button>
+                          <button
+                            onClick={() => handleDocumentAction(order.id, 'Receipt')}
+                            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                          >
+                            Receipt
+                          </button>
+                          <button
+                            disabled
+                            className="w-full text-left px-4 py-2 text-sm text-gray-400 bg-gray-50 rounded-b-lg cursor-not-allowed"
+                          >
+                            Spec Sheet <span className="text-xs">(Coming Soon)</span>
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
                     <button
                       onClick={() => handleReorder(order)}
                       className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm font-medium"

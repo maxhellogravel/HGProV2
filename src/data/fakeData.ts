@@ -3,6 +3,7 @@
 
 export interface Order {
   id: string;
+  po?: string;
   date: string;
   material: string;
   tons: number;
@@ -75,6 +76,7 @@ export const fakeBillingInfo: BillingInfo = {
 export const fakeOrders: Order[] = [
   {
     id: 'ORD-1001',
+    po: 'PO-2024-001',
     date: '2024-12-15',
     material: '57 Gravel',
     tons: 25,
@@ -84,6 +86,7 @@ export const fakeOrders: Order[] = [
   },
   {
     id: 'ORD-1002',
+    po: 'PO-2024-002',
     date: '2024-12-10',
     material: 'Pea Gravel',
     tons: 15,
@@ -93,15 +96,17 @@ export const fakeOrders: Order[] = [
   },
   {
     id: 'ORD-1003',
+    po: 'PO-2024-002',
     date: '2024-12-05',
     material: 'Road Base',
     tons: 50,
-    deliveryAddress: '9012 Pine Road, Round Rock, TX 78664',
+    deliveryAddress: '5678 Elm Avenue, Austin, TX 78702',
     status: 'delivered',
     total: 2100,
   },
   {
     id: 'ORD-1004',
+    po: 'PO-2024-003',
     date: '2024-11-28',
     material: 'Fill Dirt',
     tons: 100,
@@ -111,6 +116,7 @@ export const fakeOrders: Order[] = [
   },
   {
     id: 'ORD-1005',
+    po: 'PO-2024-004',
     date: '2024-11-20',
     material: 'Topsoil',
     tons: 30,
@@ -120,15 +126,17 @@ export const fakeOrders: Order[] = [
   },
   {
     id: 'ORD-1006',
+    po: 'PO-2024-004',
     date: '2024-11-15',
     material: '3/8 Gravel',
     tons: 20,
-    deliveryAddress: '2345 Cedar Street, Pflugerville, TX 78660',
+    deliveryAddress: '7890 Birch Lane, Georgetown, TX 78626',
     status: 'delivered',
     total: 1100,
   },
   {
     id: 'ORD-1007',
+    po: 'PO-2024-005',
     date: '2024-12-20',
     material: '57 Gravel',
     tons: 40,
@@ -138,10 +146,11 @@ export const fakeOrders: Order[] = [
   },
   {
     id: 'ORD-1008',
+    po: 'PO-2024-001',
     date: '2024-12-18',
     material: 'Pea Gravel',
     tons: 12,
-    deliveryAddress: '4567 Spruce Way, Leander, TX 78641',
+    deliveryAddress: '1234 Oak Street, Austin, TX 78701',
     status: 'in-transit',
     total: 660,
   },
