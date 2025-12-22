@@ -3,10 +3,13 @@
 
 import { useState } from 'react';
 import DashboardLayout from '../components/DashboardLayout';
-import { fakeOrders } from '../data/fakeData';
+import ReorderModal from '../components/ReorderModal';
+import { fakeOrders, Order } from '../data/fakeData';
 
 export default function Orders() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [reorderingOrder, setReorderingOrder] = useState<Order | null>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const filteredOrders = fakeOrders.filter(
     (order) =>
@@ -14,6 +17,28 @@ export default function Orders() {
       order.deliveryAddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
       order.id.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleReorder = (order: Order) => {
+    setReorderingOrder(order);
+  };
+
+  const handleConfirmReorder = (orderData: {
+    material: string;
+    tons: number;
+    deliveryAddress: string;
+    deliveryDate: string;
+  }) => {
+    setReorderingOrder(null);
+    setShowSuccess(true);
+
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 3000);
+  };
+
+  const handleCloseModal = () => {
+    setReorderingOrder(null);
+  };
 
   return (
     <DashboardLayout>
@@ -75,7 +100,10 @@ export default function Orders() {
                     <button className="px-4 py-2 border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50">
                       View Details
                     </button>
-                    <button className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm font-medium">
+                    <button
+                      onClick={() => handleReorder(order)}
+                      className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm font-medium"
+                    >
                       Reorder
                     </button>
                   </div>
@@ -84,7 +112,26 @@ export default function Orders() {
             )}
           </div>
         </div>
+
+        {showSuccess && (
+          <div className="fixed top-4 right-4 bg-green-600 text-white px-6 py-4 rounded-lg shadow-xl z-50">
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                <span className="text-green-600 font-bold">✓</span>
+              </div>
+              <p className="font-medium">Reorder submitted successfully!</p>
+            </div>
+          </div>
+        )}
       </div>
+
+      {reorderingOrder && (
+        <ReorderModal
+          order={reorderingOrder}
+          onClose={handleCloseModal}
+          onConfirm={handleConfirmReorder}
+        />
+      )}
     </DashboardLayout>
   );
 }
