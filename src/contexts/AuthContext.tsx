@@ -7,7 +7,7 @@ import { User, fakeAuth } from '../data/fakeData';
 interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
-  signup: (email: string, password: string, companyName: string, companyType: string) => Promise<void>;
+  signup: (email: string, password: string, primaryContactName: string, companyName: string) => Promise<void>;
   logout: () => Promise<void>;
   isLoading: boolean;
 }
@@ -28,10 +28,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const signup = async (email: string, password: string, companyName: string, companyType: string) => {
+  const signup = async (email: string, password: string, primaryContactName: string, companyName: string) => {
     setIsLoading(true);
     try {
-      const user = await fakeAuth.signup(email, password, companyName, companyType);
+      const user = await fakeAuth.signup(email, password, primaryContactName, companyName);
       setUser(user);
     } finally {
       setIsLoading(false);

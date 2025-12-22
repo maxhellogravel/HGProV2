@@ -23,7 +23,6 @@ export interface User {
   email: string;
   name: string;
   companyName: string;
-  companyType: string;
 }
 
 export interface BillingInfo {
@@ -56,7 +55,6 @@ export const fakeUser: User = {
   email: 'contractor@example.com',
   name: 'John Smith',
   companyName: 'Smith Contracting LLC',
-  companyType: 'Property Management',
 };
 
 export const fakeAccountManager: AccountManager = {
@@ -159,15 +157,15 @@ export const fakeAuth = {
     return fakeUser;
   },
 
-  signup: async (email: string, password: string, companyName: string, companyType: string): Promise<User> => {
+  signup: async (email: string, password: string, primaryContactName: string, companyName: string): Promise<User> => {
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 500));
 
     return {
       ...fakeUser,
       email,
+      name: primaryContactName,
       companyName,
-      companyType,
     };
   },
 

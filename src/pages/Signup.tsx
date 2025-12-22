@@ -4,13 +4,13 @@
 import { useState, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { COMPANY_TYPES } from '../data/fakeData';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [primaryContactName, setPrimaryContactName] = useState('');
   const [companyName, setCompanyName] = useState('');
-  const [companyType, setCompanyType] = useState(COMPANY_TYPES[0]);
   const [error, setError] = useState('');
   const { signup, isLoading } = useAuth();
   const navigate = useNavigate();
@@ -19,8 +19,13 @@ export default function Signup() {
     e.preventDefault();
     setError('');
 
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
     try {
-      await signup(email, password, companyName, companyType);
+      await signup(email, password, primaryContactName, companyName);
       navigate('/dashboard');
     } catch (err) {
       setError('Failed to create account');
@@ -88,6 +93,41 @@ export default function Signup() {
             </div>
 
             <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+                Confirm password
+              </label>
+              <div className="mt-1">
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="primaryContactName" className="block text-sm font-medium text-gray-700">
+                Primary contact name
+              </label>
+              <div className="mt-1">
+                <input
+                  id="primaryContactName"
+                  name="primaryContactName"
+                  type="text"
+                  required
+                  value={primaryContactName}
+                  onChange={(e) => setPrimaryContactName(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                />
+              </div>
+            </div>
+
+            <div>
               <label htmlFor="companyName" className="block text-sm font-medium text-gray-700">
                 Company name
               </label>
@@ -101,28 +141,6 @@ export default function Signup() {
                   onChange={(e) => setCompanyName(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
                 />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="companyType" className="block text-sm font-medium text-gray-700">
-                Company type
-              </label>
-              <div className="mt-1">
-                <select
-                  id="companyType"
-                  name="companyType"
-                  required
-                  value={companyType}
-                  onChange={(e) => setCompanyType(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
-                >
-                  {COMPANY_TYPES.map((type) => (
-                    <option key={type} value={type}>
-                      {type}
-                    </option>
-                  ))}
-                </select>
               </div>
             </div>
 
