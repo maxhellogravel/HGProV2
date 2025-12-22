@@ -1,0 +1,15 @@
+<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Truck icon -->
+  <g transform="translate(10, 5)">
+    <circle cx="8" cy="20" r="8" fill="none" stroke="#000" stroke-width="2"/>
+    <circle cx="32" cy="20" r="8" fill="none" stroke="#000" stroke-width="2"/>
+    <path d="M 0 12 L 0 20 M 40 12 L 40 20" stroke="#000" stroke-width="2"/>
+    <rect x="0" y="8" width="35" height="12" fill="none" stroke="#000" stroke-width="2"/>
+  </g>
+
+  <!-- HELLO text -->
+  <text x="55" y="25" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#EA580C">HELLO</text>
+
+  <!-- GRAVEL text -->
+  <text x="55" y="45" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#000">GRAVEL</text>
+</svg>
