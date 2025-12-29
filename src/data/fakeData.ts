@@ -3,7 +3,7 @@
 
 export interface Order {
   id: string;
-  po?: string;
+  jobName?: string;
   date: string;
   material: string;
   tons: number;
@@ -76,7 +76,7 @@ export const fakeBillingInfo: BillingInfo = {
 export const fakeOrders: Order[] = [
   {
     id: 'ORD-1001',
-    po: 'PO-2024-001',
+    jobName: 'Oak Street Driveway',
     date: '2024-12-15',
     material: '57 Gravel',
     tons: 25,
@@ -86,7 +86,7 @@ export const fakeOrders: Order[] = [
   },
   {
     id: 'ORD-1002',
-    po: 'PO-2024-002',
+    jobName: 'Elm Ave Parking Lot',
     date: '2024-12-10',
     material: 'Pea Gravel',
     tons: 15,
@@ -96,7 +96,7 @@ export const fakeOrders: Order[] = [
   },
   {
     id: 'ORD-1003',
-    po: 'PO-2024-002',
+    jobName: 'Elm Ave Parking Lot',
     date: '2024-12-05',
     material: 'Road Base',
     tons: 50,
@@ -106,7 +106,7 @@ export const fakeOrders: Order[] = [
   },
   {
     id: 'ORD-1004',
-    po: 'PO-2024-003',
+    jobName: 'Maple Drive Landscaping',
     date: '2024-11-28',
     material: 'Fill Dirt',
     tons: 100,
@@ -116,7 +116,7 @@ export const fakeOrders: Order[] = [
   },
   {
     id: 'ORD-1005',
-    po: 'PO-2024-004',
+    jobName: 'Birch Lane Property',
     date: '2024-11-20',
     material: 'Topsoil',
     tons: 30,
@@ -126,7 +126,7 @@ export const fakeOrders: Order[] = [
   },
   {
     id: 'ORD-1006',
-    po: 'PO-2024-004',
+    jobName: 'Birch Lane Property',
     date: '2024-11-15',
     material: '3/8 Gravel',
     tons: 20,
@@ -136,7 +136,7 @@ export const fakeOrders: Order[] = [
   },
   {
     id: 'ORD-1007',
-    po: 'PO-2024-005',
+    jobName: 'Walnut Court Development',
     date: '2024-12-20',
     material: '57 Gravel',
     tons: 40,
@@ -146,7 +146,7 @@ export const fakeOrders: Order[] = [
   },
   {
     id: 'ORD-1008',
-    po: 'PO-2024-001',
+    jobName: 'Oak Street Driveway',
     date: '2024-12-18',
     material: 'Pea Gravel',
     tons: 12,

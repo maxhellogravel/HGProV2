@@ -1,21 +1,52 @@
 // ABOUTME: Quote request form for material pricing and delivery
 // ABOUTME: Pre-fills user info and submits quote request to account manager
 
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useMemo } from 'react';
 import DashboardLayout from '../components/DashboardLayout';
 import AccountManagerCard from '../components/AccountManagerCard';
-import { MATERIALS } from '../data/fakeData';
+import { MATERIALS, fakeOrders } from '../data/fakeData';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function QuoteRequest() {
   const { user } = useAuth();
-  const [po, setPo] = useState('');
+  const [jobName, setJobName] = useState('');
   const [material, setMaterial] = useState(MATERIALS[0]);
   const [tons, setTons] = useState('');
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryDate, setDeliveryDate] = useState('');
   const [notes, setNotes] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [showJobSuggestions, setShowJobSuggestions] = useState(false);
+
+  // Get unique job names with their last used address
+  const existingJobs = useMemo(() => {
+    const jobMap = new Map<string, string>();
+    fakeOrders.forEach(order => {
+      if (order.jobName) {
+        jobMap.set(order.jobName, order.deliveryAddress);
+      }
+    });
+    return Array.from(jobMap.entries()).map(([name, address]) => ({ name, address }));
+  }, []);
+
+  // Filter suggestions based on current input
+  const filteredSuggestions = useMemo(() => {
+    if (!jobName) return existingJobs;
+    return existingJobs.filter(job =>
+      job.name.toLowerCase().includes(jobName.toLowerCase())
+    );
+  }, [jobName, existingJobs]);
+
+  const handleJobNameChange = (value: string) => {
+    setJobName(value);
+    setShowJobSuggestions(true);
+  };
+
+  const handleJobSelect = (job: { name: string; address: string }) => {
+    setJobName(job.name);
+    setDeliveryAddress(job.address);
+    setShowJobSuggestions(false);
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -23,7 +54,7 @@ export default function QuoteRequest() {
 
     setTimeout(() => {
       setSubmitted(false);
-      setPo('');
+      setJobName('');
       setMaterial(MATERIALS[0]);
       setTons('');
       setDeliveryAddress('');
@@ -61,18 +92,36 @@ export default function QuoteRequest() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
+                  <div className="relative">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      PO Number (optional)
+                      Job Name (optional)
                     </label>
                     <input
                       type="text"
-                      value={po}
-                      onChange={(e) => setPo(e.target.value)}
-                      placeholder="e.g., PO-2024-001"
+                      value={jobName}
+                      onChange={(e) => handleJobNameChange(e.target.value)}
+                      onFocus={() => setShowJobSuggestions(true)}
+                      onBlur={() => setTimeout(() => setShowJobSuggestions(false), 200)}
+                      placeholder="e.g., Oak Street Driveway"
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                     />
-                    <p className="text-xs text-gray-500 mt-1">Add a PO to group multiple orders to the same job site</p>
+                    <p className="text-xs text-gray-500 mt-1">Name this job to group orders and speed up reorders</p>
+
+                    {showJobSuggestions && filteredSuggestions.length > 0 && (
+                      <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+                        {filteredSuggestions.map((job, index) => (
+                          <button
+                            key={index}
+                            type="button"
+                            onClick={() => handleJobSelect(job)}
+                            className="w-full text-left px-3 py-2 hover:bg-orange-50 border-b border-gray-100 last:border-b-0"
+                          >
+                            <div className="font-medium text-gray-900">{job.name}</div>
+                            <div className="text-xs text-gray-500">{job.address}</div>
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
