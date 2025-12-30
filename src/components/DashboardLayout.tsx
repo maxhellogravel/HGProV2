@@ -34,7 +34,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="flex justify-between h-16">
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
-                <img src="/logo.svg" alt="Hello Gravel Pro" className="h-10" />
+                <img src="/HGMainLogo.png" alt="Hello Gravel Pro" className="h-10" />
               </div>
               <div className="hidden sm:ml-8 sm:flex sm:space-x-8">
                 {navItems.map((item) => {

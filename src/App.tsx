@@ -19,7 +19,7 @@ function App() {
 
       <nav className="fixed top-9 w-full bg-white border-b border-gray-200 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-          <img src="/logo.svg" alt="Hello Gravel Pro" className="h-12" />
+          <img src="/HGMainLogo.png" alt="Hello Gravel Pro" className="h-12" />
 
           <div className="hidden md:flex items-center gap-8">
             <button className="text-gray-900 font-medium hover:text-orange-600 transition-colors">
