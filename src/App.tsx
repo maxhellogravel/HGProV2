@@ -109,32 +109,31 @@ function App() {
 
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 mb-12">
-            <div>
-              <h2 className="text-3xl font-black text-gray-900 mb-6">Under 1,000 Tons</h2>
-              <p className="text-gray-600 mb-4">
-                Get a quoted price
-              </p>
+          <div className="mb-12 text-center max-w-2xl mx-auto">
+            <p className="text-gray-600 mb-6">
+              Need to manage multiple orders, larger quantities, or flexible payment terms?
+            </p>
+            <Link
+              to="/signup"
+              className="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 rounded-lg font-bold text-lg transition-colors mb-4"
+            >
+              Create a Business Account
+              <ChevronRight className="w-5 h-5" />
+            </Link>
+            <div className="mt-6">
               <a
                 href="#"
-                className="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg font-bold transition-colors"
+                className="text-gray-600 hover:text-orange-600 transition-colors"
               >
-                Quote Form
-                <ChevronRight className="w-5 h-5" />
+                Just looking to order a delivery? Click here to order
               </a>
             </div>
-
-            <div>
-              <h2 className="text-3xl font-black text-gray-900 mb-6">Over 1,000 Tons</h2>
-              <p className="text-gray-600 mb-4">
-                Try our Instant quote tool for a budgetary number based on regional pricing
-              </p>
+            <div className="mt-4">
               <a
                 href="#"
-                className="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg font-bold transition-colors"
+                className="text-sm text-gray-500 hover:text-orange-600 transition-colors"
               >
-                Instant Quote
-                <ChevronRight className="w-5 h-5" />
+                Budgetary tool for large project bidding
               </a>
             </div>
           </div>
