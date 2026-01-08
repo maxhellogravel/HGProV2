@@ -82,7 +82,7 @@ function App() {
 
           <div>
             <h2 className="text-4xl font-black text-gray-900 mb-8">Why Us?</h2>
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-6 mb-8">
               <div className="bg-white border-2 border-gray-300 rounded-lg p-6 hover:shadow-md transition-shadow">
                 <h3 className="text-xl font-bold text-gray-900">Fast Delivery</h3>
                 <p className="text-gray-600 mt-2">We work with local pits and haulers to deliver on time, every time.</p>
@@ -103,6 +103,15 @@ function App() {
                 <p className="text-gray-600 mt-2">One point of contact for quotes, scheduling, and repeat orders.</p>
               </div>
             </div>
+
+            <div className="bg-white border-2 border-gray-300 rounded-lg p-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Additional Perks</h3>
+              <ul className="text-gray-600 space-y-2 list-disc list-inside">
+                <li>Manage multiple orders</li>
+                <li>Larger quantities</li>
+                <li>Flexible payment terms</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -110,37 +119,28 @@ function App() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <div className="mb-12 text-center max-w-2xl mx-auto">
-            <p className="text-gray-600 mb-6">
-              Need to manage multiple orders, larger quantities, or flexible payment terms?
-            </p>
             <Link
               to="/signup"
               className="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 rounded-lg font-bold text-lg transition-colors mb-4"
             >
-              Create a Business Account
+              Create Pro Account
               <ChevronRight className="w-5 h-5" />
             </Link>
-            <div className="mt-6">
+            <div className="mt-8">
+              <p className="text-gray-600 mb-2">Just looking for a delivery?</p>
               <a
                 href="#"
-                className="text-gray-600 hover:text-orange-600 transition-colors"
+                className="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg font-bold transition-colors"
               >
-                Just looking to order a delivery? Click here to order
-              </a>
-            </div>
-            <div className="mt-4">
-              <a
-                href="#"
-                className="text-sm text-gray-500 hover:text-orange-600 transition-colors"
-              >
-                Budgetary tool for large project bidding
+                Order Now
+                <ChevronRight className="w-5 h-5" />
               </a>
             </div>
           </div>
 
-          <div>
+          <div className="text-center">
             <h2 className="text-3xl font-black text-gray-900 mb-6">Contact Us</h2>
-            <div className="space-y-4">
+            <div className="space-y-4 inline-block">
               <div>
                 <p className="font-bold text-gray-900">504-323-6496</p>
                 <p className="text-gray-600">Max Cannon, Sales Manager</p>
